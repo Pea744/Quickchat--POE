@@ -1,3 +1,4 @@
+// Registration and Login Section
 File 2: Main.java
 
 package main;
