@@ -1,5 +1,5 @@
+// Part 2 Message Completed 
 Message.java
-
 package com.mycompany.message;
 
 import java.util.ArrayList;
