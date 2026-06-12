@@ -1,0 +1,81 @@
+MessageTest.java
+
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class MessageTest {
+
+    @Test
+    public void testUsernameCorrect() {
+        Message user = new Message("kyl_1", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertTrue(user.checkUserName());
+    }
+
+    @Test
+    public void testUsernameWrong() {
+        Message user = new Message("kyle!!!!", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertFalse(user.checkUserName());
+    }
+
+    @Test
+    public void testPasswordValid() {
+        Message user = new Message("kyl_1", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertTrue(user.checkPasswordComplexity());
+    }
+
+    @Test
+    public void testPasswordInvalid() {
+        Message user = new Message("kyl_1", "password", "+27831234567", "Kyle", "Smith");
+        assertFalse(user.checkPasswordComplexity());
+    }
+
+    @Test
+    public void testPhoneValid() {
+        Message user = new Message("kyl_1", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertTrue(user.checkCellPhoneNumber());
+    }
+
+    @Test
+    public void testPhoneInvalid() {
+        Message user = new Message("kyl_1", "Pass@123", "083", "Kyle", "Smith");
+        assertFalse(user.checkCellPhoneNumber());
+    }
+
+    @Test
+    public void testLoginSuccess() {
+        Message user = new Message("kyl_1", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertTrue(user.loginUser("kyl_1", "Pass@123"));
+    }
+
+    @Test
+    public void testLoginFail() {
+        Message user = new Message("kyl_1", "Pass@123", "+27831234567", "Kyle", "Smith");
+        assertFalse(user.loginUser("kyl_1", "wrong"));
+    }
+
+    @Test
+    public void testMessageID() {
+        Message msg = new Message("+27831234567", "Hello world message test");
+        assertTrue(msg.checkMessageID());
+    }
+
+    @Test
+    public void testRecipient() {
+        Message msg = new Message("+27831234567", "Hello world");
+        assertEquals("Cell phone number successfully captured.", msg.checkRecipientCell());
+    }
+
+    @Test
+    public void testTotalMessages() {
+        Message.resetData();
+
+        int before = Message.returnTotalMessages();
+
+        new Message("+27831234567", "Msg1");
+        new Message("+27839876543", "Msg2");
+
+        int after = Message.returnTotalMessages();
+
+        assertTrue(after >= before + 2);
+    }
+}
